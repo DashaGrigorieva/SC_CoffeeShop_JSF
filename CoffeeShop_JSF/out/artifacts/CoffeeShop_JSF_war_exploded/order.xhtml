@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Заказ</title>
+</h:head>
+<h:body>
+    <br/>
+    <h:form>
+        Сорт кофе:
+        <h:selectOneMenu value="#{coffeeOrder.coffeeType}" binding="#{coffeeType}">
+            <f:selectItem itemValue="Kenyan Coffee" itemLabel="Kenyan Coffee" />
+            <f:selectItem itemValue="Tanzania Peaberry Coffee" itemLabel="Tanzania Peaberry Coffee" />
+            <f:selectItem itemValue="Ethiopian Coffee" itemLabel="Ethiopian Coffee" />
+            <f:selectItem itemValue="Sumatra Mandheling Coffee" itemLabel="Sumatra Mandheling Coffee" />
+            <f:selectItem itemValue="Italian Roast" itemLabel="Italian Roast" />
+        </h:selectOneMenu><br/>
+
+        Количество в граммах:
+        <h:inputText id="amount" value="#{coffeeOrder.amount}" style="width:100px;" required="true" requiredMessage="Введите количество"
+                     validatorMessage="Введите количество кофе не менее 100 г" binding="#{amount}">
+            <f:validateDoubleRange minimum="100" maximum="10000" />
+        </h:inputText>
+        <h:message for="amount" style="color:darkcyan" /><br/>
+
+        Доставка:
+        <h:selectOneRadio value="#{coffeeOrder.delivery}" binding="#{delivery}">
+            <f:selectItem itemValue="true" itemLabel="курьером" />
+            <f:selectItem itemValue="false" itemLabel="самостоятельно" />
+        </h:selectOneRadio>
+
+        Время с:
+        <h:selectOneMenu id="fromTime" value="#{coffeeOrder.fromTime}" binding="#{fromTime}">
+            <f:selectItem  itemValue="9" itemLabel="9"/>
+            <f:selectItem  itemValue="10" itemLabel="10"/>
+            <f:selectItem  itemValue="11" itemLabel="11"/>
+            <f:selectItem  itemValue="12" itemLabel="12"/>
+            <f:selectItem  itemValue="13" itemLabel="13"/>
+            <f:selectItem  itemValue="14" itemLabel="14"/>
+            <f:selectItem  itemValue="15" itemLabel="15"/>
+            <f:selectItem  itemValue="16" itemLabel="16"/>
+            <f:selectItem  itemValue="17" itemLabel="17"/>
+            <f:selectItem  itemValue="18" itemLabel="18"/>
+            <f:selectItem  itemValue="19" itemLabel="19"/>
+        </h:selectOneMenu>
+        до:
+        <h:selectOneMenu id="toTime" value="#{coffeeOrder.toTime}" binding="#{toTime}">
+            <f:selectItem  itemValue="10" itemLabel="10"/>
+            <f:selectItem  itemValue="11" itemLabel="11"/>
+            <f:selectItem  itemValue="12" itemLabel="12"/>
+            <f:selectItem  itemValue="13" itemLabel="13"/>
+            <f:selectItem  itemValue="14" itemLabel="14"/>
+            <f:selectItem  itemValue="15" itemLabel="15"/>
+            <f:selectItem  itemValue="16" itemLabel="16"/>
+            <f:selectItem  itemValue="17" itemLabel="17"/>
+            <f:selectItem  itemValue="18" itemLabel="18"/>
+            <f:selectItem  itemValue="19" itemLabel="19"/>
+            <f:selectItem  itemValue="20" itemLabel="20"/>
+            <f:attribute name="fromTime" value="#{fromTime}" />
+            <f:validator validatorId="timeValidator"/>
+        </h:selectOneMenu>
+        <h:message for="toTime" style="color:darkcyan" /><br/>
+        <span>Цена заказа : #{coffeeOrder.calcCost()}р.</span><br/><br/>
+
+        <h:commandButton id="ok" value="OK" />
+        <h:commandButton id="submit" value="Сделать заказ" action="#{orderDAO.addOrder(coffeeOrder)}">
+            <h:outputText>
+                <f:attribute name="fromTime" value="#{fromTime}" />
+                <f:attribute name="fromTime" value="#{toTime}" />
+                <f:attribute name="coffeeType" value="#{coffeeType}" />
+                <f:attribute name="amount" value="#{amount}" />
+                <f:attribute name="delivery" value="#{delivery}" />
+                <f:converter converterId="orderConverter"/>
+            </h:outputText>
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <br/><br/>
+        <h:commandButton value="Главная" action="main" style="width:100px; height:25px;"/>
+    </h:form>
+</h:body>
+</html>

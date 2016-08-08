@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Coffee Shop</title>
+    <style type="text/css">
+        table, th, td {
+            border-collapse: collapse;
+            vertical-align: middle;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+</h:head>
+<h:body>
+    <br/><br/>
+    <h:form>
+        <table width="100%">
+            <tr>
+                <td>
+                    <h:commandButton value="Новый заказ" action="order" style="width:200px;height:50px;"/>
+                </td>
+                <td>
+                    <h:commandButton value="Редактировать" action="edit" style="width:200px;height:50px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h2>
+                        <span>Количество заказов : #{orderDAO.ordersCount()}</span>
+                    </h2>
+                </td>`
+            </tr>
+        </table>
+    </h:form>
+</h:body>
+</html>
